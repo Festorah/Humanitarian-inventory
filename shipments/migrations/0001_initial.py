@@ -2,7 +2,6 @@
 
 import uuid
 
-import django.core.validators
 from django.db import migrations, models
 
 
@@ -10,12 +9,20 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = []
+    dependencies = [
+        ("orders", "0001_initial"),
+    ]
 
     operations = [
         migrations.CreateModel(
-            name="Item",
+            name="Shipment",
             fields=[
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="creation date"
+                    ),
+                ),
                 (
                     "created_by",
                     models.UUIDField(
@@ -51,30 +58,47 @@ class Migration(migrations.Migration):
                         verbose_name="id",
                     ),
                 ),
-                ("name", models.CharField(max_length=255, unique=True)),
-                ("description", models.TextField(blank=True, null=True)),
+                ("shipment_number", models.CharField(max_length=50, unique=True)),
                 (
-                    "quantity",
-                    models.PositiveIntegerField(
-                        default=0,
-                        validators=[django.core.validators.MinValueValidator(0)],
-                    ),
+                    "route",
+                    models.TextField(help_text="Description of the shipment route."),
                 ),
                 (
-                    "location",
+                    "status",
                     models.CharField(
-                        help_text="Storage location of the item.", max_length=255
+                        choices=[
+                            ("IN_TRANSIT", "In Transit"),
+                            ("DELIVERED", "Delivered"),
+                            ("DELAYED", "Delayed"),
+                            ("CANCELLED", "Cancelled"),
+                        ],
+                        default="IN_TRANSIT",
+                        max_length=20,
                     ),
                 ),
-                ("expiry_date", models.DateField(blank=True, null=True)),
-                ("created_at", models.DateTimeField(auto_now_add=True)),
-                ("updated_at", models.DateTimeField(auto_now=True)),
+                ("departure_date", models.DateTimeField(verbose_name="departure date")),
+                (
+                    "arrival_date",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="arrival date"
+                    ),
+                ),
+                (
+                    "orders",
+                    models.ManyToManyField(related_name="shipments", to="orders.order"),
+                ),
             ],
             options={
+                "verbose_name": "shipment",
+                "verbose_name_plural": "shipments",
+                "ordering": ("-created_at",),
                 "indexes": [
-                    models.Index(fields=["name"], name="inventory_i_name_637656_idx"),
                     models.Index(
-                        fields=["expiry_date"], name="inventory_i_expiry__035482_idx"
+                        fields=["shipment_number"],
+                        name="shipments_s_shipmen_8b3960_idx",
+                    ),
+                    models.Index(
+                        fields=["status"], name="shipments_s_status_536511_idx"
                     ),
                 ],
             },

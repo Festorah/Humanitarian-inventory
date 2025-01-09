@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <meta name="supported-color-schemes" content="light dark">
+    <title>Welcome to Excellence</title>
+    <!--[if mso]>
+    <noscript>
+        <xml>
+            <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+            </o:OfficeDocumentSettings>
+        </xml>
+    </noscript>
+    <![endif]-->
+    <style>
+        :root {
+            color-scheme: light dark;
+            supported-color-schemes: light dark;
+        }
+
+        /* Reset styles */
+        body,
+        #bodyTable {
+            margin: 0;
+            padding: 0;
+            width: 100% !important;
+            height: 100% !important;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            background-color: #F3F4F6;
+        }
+
+        /* Brand colors */
+        :root {
+            --primary-color: #3B1D5C;
+            --secondary-color: #7C3AED;
+            --accent-color: #DDD6FE;
+            --text-color: #1F2937;
+            --background-color: #ffffff;
+            --gradient-start: #4F46E5;
+            --gradient-end: #7C3AED;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .inner-container {
+            background-color: var(--background-color);
+            margin: 1px;
+            border-radius: 15px;
+        }
+
+        /* Typography */
+        .header {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 32px;
+            color: var(--primary-color);
+            margin: 0;
+            padding: 0 0 24px 0;
+            text-align: center;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .subheader {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-size: 18px;
+            color: var(--secondary-color);
+            text-align: center;
+            margin: 0 0 32px 0;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .body-text {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-color);
+            margin: 0 0 24px 0;
+        }
+
+        /* Button styles */
+        .button-container {
+            text-align: center;
+            padding: 32px 0;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.2);
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+        }
+
+        /* Logo container */
+        .logo-container {
+            text-align: center;
+            padding: 48px 0 32px 0;
+            background-color: var(--background-color);
+        }
+
+        .logo {
+            width: 140px;
+            height: auto;
+        }
+
+        /* Decorative elements */
+        .decorative-line {
+            height: 3px;
+            width: 60px;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            margin: 32px auto;
+            border-radius: 3px;
+        }
+
+        /* Content padding */
+        .content {
+            padding: 48px 48px 32px 48px;
+            background-color: var(--background-color);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #F9FAFB;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #6B7280;
+            margin: 0 0 16px 0;
+            line-height: 1.6;
+        }
+
+        .social-icons {
+            padding: 24px 0;
+        }
+
+        .social-icon {
+            display: inline-block;
+            margin: 0 8px;
+            width: 32px;
+            height: 32px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+
+            body,
+            #bodyTable {
+                background-color: #111827;
+            }
+
+            .inner-container {
+                background-color: #1F2937;
+            }
+
+            .header {
+                color: #F3F4F6;
+            }
+
+            .body-text {
+                color: #E5E7EB;
+            }
+
+            .footer {
+                background-color: #111827;
+            }
+
+            .footer-text {
+                color: #9CA3AF;
+            }
+        }
+
+        /* Responsive design */
+        @media screen and (max-width: 600px) {
+            .container {
+                width: 100% !important;
+                border-radius: 0;
+            }
+
+            .inner-container {
+                border-radius: 0;
+            }
+
+            .content {
+                padding: 32px 24px;
+            }
+
+            .header {
+                font-size: 28px;
+            }
+
+            .button {
+                display: block;
+                margin: 0 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" id="bodyTable">
+        <tr>
+            <td align="center" valign="top" style="padding: 48px 20px;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" class="container" width="600">
+                    <tr>
+                        <td>
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0"
+                                class="inner-container" width="100%">
+                                <!-- Logo Section -->
+                                <tr>
+                                    <td class="logo-container">
+                                        <img src="/api/placeholder/140/50" alt="Company Logo" class="logo">
+                                    </td>
+                                </tr>
+
+                                <!-- Main Content -->
+                                <tr>
+                                    <td class="content">
+                                        <h1 class="header">Welcome to a World of Excellence</h1>
+                                        <p class="subheader">Verify Your Email to Begin</p>
+
+                                        <div class="decorative-line"></div>
+
+                                        <p class="body-text">
+                                            We're thrilled to welcome you to our community of visionaries and
+                                            innovators. Your journey with us begins with a simple verification of your
+                                            email address.
+                                        </p>
+
+                                        <p class="body-text">
+                                            Click the button below to confirm your email and unlock a world of
+                                            exceptional experiences designed exclusively for you.
+                                        </p>
+
+                                        <!-- Button Container -->
+                                        <div class="button-container">
+                                            <a href="{{verification_link}}" class="button">
+                                                Verify Email
+                                            </a>
+                                        </div>
+
+                                        <p class="body-text"
+                                            style="font-size: 14px; color: #6B7280; text-align: center;">
+                                            This exclusive invitation expires in 24 hours.<br>
+                                            If you didn't request this verification, please disregard this email.
+                                        </p>
+
+                                        <div class="decorative-line"></div>
+                                    </td>
+                                </tr>
+
+                                <!-- Footer -->
+                                <tr>
+                                    <td class="footer">
+                                        <p class="footer-text">© 2025 Your Premium Brand. All rights reserved.</p>
+
+                                        <div class="social-icons">
+                                            <a href="#" class="social-icon">
+                                                <img src="/api/placeholder/16/16" alt="Twitter"
+                                                    style="vertical-align: middle;">
+                                            </a>
+                                            <a href="#" class="social-icon">
+                                                <img src="/api/placeholder/16/16" alt="LinkedIn"
+                                                    style="vertical-align: middle;">
+                                            </a>
+                                            <a href="#" class="social-icon">
+                                                <img src="/api/placeholder/16/16" alt="Instagram"
+                                                    style="vertical-align: middle;">
+                                            </a>
+                                        </div>
+
+                                        <p class="footer-text" style="font-size: 12px;">
+                                            Headquartered at: Luxury Avenue 123, Elite District<br>
+                                            Premier City, PC 12345
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

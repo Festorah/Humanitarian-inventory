@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from orders.models.order import Order
 from users.models import ObjectEventTracker, UUIDPrimaryKey
@@ -27,7 +28,7 @@ class Shipment(UUIDPrimaryKey, ObjectEventTracker):
     class Meta:
         verbose_name = _("shipment")
         verbose_name_plural = _("shipments")
-        ordering = ("-shipped_at",)
+        ordering = ("-created_at",)
 
         indexes = [
             models.Index(fields=["shipment_number"]),
