@@ -95,6 +95,8 @@ DATABASES = {
     }
 }
 
+
+AUTH_USER_MODEL = "users.User"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
