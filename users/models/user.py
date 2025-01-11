@@ -73,7 +73,4 @@ class User(UUIDPrimaryKey, ObjectEventTracker, AbstractUser):
         )
 
     def __str__(self):
-        return f"{self.email} ({self.get_role_display()})"
-
-    def get_role_display(self):
-        return self.get_role_display()
+        return f"{self.email}"

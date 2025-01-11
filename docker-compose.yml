@@ -1,0 +1,77 @@
+# version: "3.8"
+
+services:
+  django:
+    build:
+      context: .
+    container_name: humanitarian_app
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+      - db  # Add PostgreSQL as a dependency
+    env_file:
+      - .env
+    environment:
+      DJANGO_SETTINGS_MODULE: inventory_management.settings
+      CELERY_BROKER_URL: redis://redis:6379/0
+      MAIL_JET_PUBLIC_KEY: ${MAIL_JET_PUBLIC_KEY}
+      MAIL_JET_SECRET_KEY: ${MAIL_JET_SECRET_KEY}
+      SECRET_KEY: ${SECRET_KEY}
+
+  redis:
+    image: redis:alpine
+    container_name: redis_server
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  db:
+    image: postgres:14
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  celery:
+    build:
+      context: .
+    container_name: celery_worker
+    command: celery -A inventory_management worker --loglevel=info
+    depends_on:
+      redis:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      DJANGO_SETTINGS_MODULE: inventory_management.settings
+      CELERY_BROKER_URL: redis://redis:6379/0
+      MAIL_JET_PUBLIC_KEY: ${MAIL_JET_PUBLIC_KEY}
+      MAIL_JET_SECRET_KEY: ${MAIL_JET_SECRET_KEY}
+      SECRET_KEY: ${SECRET_KEY}
+
+volumes:
+  postgres_data:

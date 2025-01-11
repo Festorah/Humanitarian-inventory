@@ -8,20 +8,17 @@ from users.services.email_service import EmailService
 
 
 @shared_task
-def send_email_verification_mail(user):
-    token = EmailVerificationToken.objects.create(
-        user=user, expires_at=datetime.now() + timedelta(days=7)
-    )
+def send_email_verification_mail(user_email, token):
 
     context = {
-        "user": user,
-        "verification_link": f"{settings.FRONTEND_URL}/verify-email/{token.token}",
+        "user": user_email,
+        "verification_link": f"{settings.FRONTEND_URL}/verify-email/{token}",
     }
 
     email_service = EmailService(
         from_email=settings.DEFAULT_FROM_EMAIL,
-        to_email=user.email,
-        to_name=user.email,
+        to_email=user_email,
+        to_name=user_email,
     )
     email_service.send_email(
         subject="Verify your email address",

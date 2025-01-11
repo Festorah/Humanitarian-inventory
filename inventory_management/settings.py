@@ -94,16 +94,18 @@ DATABASES = {
         "CONN_MAX_AGE": int(config("POSTGRES_CONN_MAX_AGE")),
     }
 }
-
+DEFAULT_FROM_EMAIL = "support@muchmoreinnovationsltd.com"
 
 AUTH_USER_MODEL = "users.User"
+JWT_SETTINGS = {"ALGORITHM": "HS256", "EXPIRATION_MINUTES": 30}
+
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
         "LOCATION": "redis://redis:6379/1",
     }
 }
-
+FRONTEND_URL = "http://localhost:3000"
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -145,3 +147,6 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
