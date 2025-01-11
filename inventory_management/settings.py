@@ -105,7 +105,7 @@ CACHES = {
         "LOCATION": "redis://redis:6379/1",
     }
 }
-FRONTEND_URL = "http://localhost:3000"
+FRONTEND_URL = "http://localhost:8000/accounts"
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -150,3 +150,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CELERY_BROKER_URL = "redis://redis:6379/0"
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
+
+CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_EAGER_PROPAGATES = True
+BROKER_BACKEND = "memory"
