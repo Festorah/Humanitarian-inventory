@@ -1,4 +1,6 @@
+import requests
 from decouple import config
+from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from mailjet_rest import Client
@@ -21,7 +23,7 @@ class EmailService:
         html_content = self._render_email_html(template_name, context)
 
         data = {
-            "Message": [
+            "Messages": [
                 {
                     "From": {
                         "Email": self.from_email,
@@ -34,8 +36,8 @@ class EmailService:
                         },
                     ],
                     "Subject": subject,
-                    "HTMLPart": html_content,
                     "TextPart": strip_tags(html_content),
+                    "HTMLPart": html_content,
                 }
             ]
         }
@@ -44,7 +46,7 @@ class EmailService:
 
     def _render_email_html(self, template_name, context):
         """Renders the email template with the given context."""
-        return render_to_string(template_name, context)
+        return render_to_string(template_name=template_name, context=context)
 
     def _send_via_mailjet(self, data):
         """Sends an email via Mailjet with the given data."""
